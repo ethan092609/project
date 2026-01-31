@@ -23,29 +23,19 @@ def show_tasks(tasks):
 
     print("\nYour Tasks:")
     for i, task in enumerate(tasks, start=1):
-        status = "✓" if task["completed"] else " "
-        print(f"{i}. [{status}] {task['text']}")
+        print(f"{i}. {task}")
 
 # Add a task
 def add_task(tasks):
-    text = input("Enter a task: ").strip()
-    if text:
-        tasks.append({"text": text, "completed": False})
+    task = input("Enter a new task: ").strip()
+    if task:
+        tasks.append(task)
         save_tasks(tasks)
         print("Task added.")
+    else:
+        print("Task cannot be empty.")
 
-# Mark task as completed
-def complete_task(tasks):
-    show_tasks(tasks)
-    try:
-        num = int(input("Enter task number to complete: "))
-        tasks[num - 1]["completed"] = True
-        save_tasks(tasks)
-        print("Task marked as completed.")
-    except (ValueError, IndexError):
-        print("Invalid selection.")
-
-# Main menu loop
+# Main program loop
 def main():
     tasks = load_tasks()
 
@@ -53,8 +43,7 @@ def main():
         print("\n--- Task Tracker ---")
         print("1. Add task")
         print("2. View tasks")
-        print("3. Complete task")
-        print("4. Exit")
+        print("3. Exit")
 
         choice = input("Choose an option: ")
 
@@ -63,8 +52,6 @@ def main():
         elif choice == "2":
             show_tasks(tasks)
         elif choice == "3":
-            complete_task(tasks)
-        elif choice == "4":
             print("Goodbye!")
             break
         else:
