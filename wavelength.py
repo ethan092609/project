@@ -37,7 +37,7 @@ def calculate_points(guess, actual):
 while play_again
 
 '''
-Ethans code: generates random integers for 2 different variables used further on. One is for the topics which randomly picks a number in the dictionary and plugs it into the prompt/topic box. Num variable is used for the scale, depending on what number it lands on, it gives context on how extreme or lukewarm something is.
+My code: generates random integers for 2 different variables used further on. One is for the topics which randomly picks a number in the dictionary and plugs it into the prompt/topic box. Num variable is used for the scale, depending on what number it lands on, it gives context on how extreme or lukewarm something is.
 '''
     topic = random.randint(1, 10)
     num = random.randint(-15, 15)
