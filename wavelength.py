@@ -11,9 +11,14 @@ ai_score = 0
 play_again = True
 
 # Prompts
-prompt1 = "You will be given a topic and a number from a scale of -15 to 15 with context, give a phrase noun, item, or verb depending on the topic within the context of the topic to help the player guess the scale correctly. Do not repeat the same hints. Occasionally if the scale is either -15 or 15, throw in the most diabolical examples. Try not to give away what the scale is and use only the hints to help the player guess the scale."
+prompt1 = "You will be given a topic and a number from a scale of -15 to 15 with context, " \
+"give a phrase noun, item, or verb depending on the topic within the context of the topic to " \
+"help the player guess the scale correctly. Do not repeat the same hints. Occasionally if the " \
+"scale is either -15 or 15, throw in the most diabolical examples. Try not to give away what the " \
+"scale is and use only the hints to help the player guess the scale."
 
-prompt2 = "You will be given a hint, topic and scale. You have to guess within the scale a number that would match the vibe of the hint. Respond with only the integer (no extra text)."
+prompt2 = "You will be given a hint, topic and scale. You have to guess within the scale a number" \
+" that would match the vibe of the hint. Respond with only the integer (no extra text)."
 
 def extract_number(text):
     """Extract first integer from text, return None if not found."""
@@ -34,11 +39,13 @@ def calculate_points(guess, actual):
         return 0
 
 # Game loop
-while play_again
-
-'''
-My code: generates random integers for 2 different variables used further on. One is for the topics which randomly picks a number in the dictionary and plugs it into the prompt/topic box. Num variable is used for the scale, depending on what number it lands on, it gives context on how extreme or lukewarm something is.
-'''
+while play_again:
+    '''
+    My code: generates random integers for 2 different variables used further on. 
+    One is for the topics which randomly picks a number in the dictionary and plugs 
+    it into the prompt/topic box. Num variable is used for the scale, depending on 
+    what number it lands on, it gives context on how extreme or lukewarm something is.
+    '''
     topic = random.randint(1, 10)
     num = random.randint(-15, 15)
 
@@ -54,12 +61,12 @@ My code: generates random integers for 2 different variables used further on. On
         9: "music: -15 good, 15 bad",
         10: "number: -15 low, 15 high"
     }
+    
     choice = input("\nWould you like to guess or give the hints? (guess/hint/quit): ").strip().lower()
 
     print(f"\n--- New Round ---")
     print(f"Topic: {number_to_word[topic]}")
     print(f"(Secret scale: {num})" if choice != 'guess' else "")  # Only show when giving hints
-    
 
     if choice == "quit":
         break
@@ -69,7 +76,7 @@ My code: generates random integers for 2 different variables used further on. On
         content1 = f"Topic: {number_to_word[topic]} scale: {num}"
 
         completion = client.chat.completions.create(
-            model="openai/gpt-oss-120b",
+            model="llama-3.3-70b-versatile",  
             messages=[
                 {"role": "user", "content": prompt1},
                 {"role": "user", "content": content1}
@@ -105,7 +112,7 @@ My code: generates random integers for 2 different variables used further on. On
         content2 = f"Topic: {number_to_word[topic]} hint: {user_hint}"
 
         completion = client.chat.completions.create(
-            model="openai/gpt-oss-120b",
+            model="llama-3.3-70b-versatile",  
             messages=[
                 {"role": "user", "content": prompt2},
                 {"role": "user", "content": content2}
